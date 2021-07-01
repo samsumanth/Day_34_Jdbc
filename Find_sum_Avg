@@ -1,0 +1,119 @@
+import java.sql.*;
+
+public class APP2 
+{
+    public static void main( String[] args ) throws ClassNotFoundException, SQLException
+    {
+    	 calculateSum();
+    	 calculateCount();
+    	 calculateAvg();
+    	 calculateMin();
+    	 calculateMax();
+    }
+    
+    public static void calculateSum() throws ClassNotFoundException, SQLException
+    {
+    	String url = "jdbc:mysql://localhost:3306/payroll_service";
+    	String uname = "root";
+    	String pass = "";
+    	String query = "select sum(emp_salary) from employee_payroll";
+    	
+    	Class.forName("com.mysql.cj.jdbc.Driver");
+    	Connection con = DriverManager.getConnection(url,uname,pass);
+    	Statement st = con.createStatement();
+    	ResultSet rs = st.executeQuery(query);
+    	
+    	while(rs.next())
+    	{
+    		String Countrun = rs.getString(1);
+    		
+    		System.out.println("Total Salary:" + Countrun);
+      	}
+    	st.close();
+    	con.close();
+    } 	
+
+    public static void calculateCount() throws SQLException, ClassNotFoundException
+    {
+      	String url = "jdbc:mysql://localhost:3306/payroll_service";
+    	String uname = "root";
+    	String pass = "";
+    	String query = "select count(emp_salary) from employee_payroll";
+    	
+    	Class.forName("com.mysql.cj.jdbc.Driver");
+    	Connection con = DriverManager.getConnection(url,uname,pass);
+    	Statement st = con.createStatement();
+    	ResultSet rs = st.executeQuery(query);
+    	
+    	while(rs.next())
+    	{
+    		String Countrun = rs.getString(1);    		
+    		System.out.println("Total Count:" + Countrun);
+      	}
+    	st.close();
+    	con.close();
+    }
+    
+    public static void calculateAvg() throws SQLException, ClassNotFoundException
+    {
+      	String url = "jdbc:mysql://localhost:3306/payroll_service";
+    	String uname = "root";
+    	String pass = "";
+    	String query = "select avg(emp_salary) from employee_payroll";
+    	
+    	Class.forName("com.mysql.cj.jdbc.Driver");
+    	Connection con = DriverManager.getConnection(url,uname,pass);
+    	Statement st = con.createStatement();
+    	ResultSet rs = st.executeQuery(query);
+    	
+    	while(rs.next())
+    	{
+    		String Countrun = rs.getString(1);    		
+    		System.out.println("Average salary:" + Countrun);
+      	}
+    	st.close();
+    	con.close();
+    }
+
+    public static void calculateMin() throws SQLException, ClassNotFoundException
+    {
+      	String url = "jdbc:mysql://localhost:3306/payroll_service";
+    	String uname = "root";
+    	String pass = "";
+    	String query = "select min(emp_salary) from employee_payroll";
+    	
+    	Class.forName("com.mysql.cj.jdbc.Driver");
+    	Connection con = DriverManager.getConnection(url,uname,pass);
+    	Statement st = con.createStatement();
+    	ResultSet rs = st.executeQuery(query);
+    	
+    	while(rs.next())
+    	{
+    		String Countrun = rs.getString(1);    		
+    		System.out.println("Minimum salary:" + Countrun);
+      	}
+    	st.close();
+    	con.close();
+    }
+
+    public static void calculateMax() throws SQLException, ClassNotFoundException
+    {
+      	String url = "jdbc:mysql://localhost:3306/payroll_service";
+    	String uname = "root";
+    	String pass = "";
+    	String query = "select max(emp_salary) from employee_payroll";
+    	
+    	Class.forName("com.mysql.cj.jdbc.Driver");
+    	Connection con = DriverManager.getConnection(url,uname,pass);
+    	Statement st = con.createStatement();
+    	ResultSet rs = st.executeQuery(query);
+    	
+    	while(rs.next())
+    	{
+    		String Countrun = rs.getString(1);    		
+    		System.out.println("Max salary:" + Countrun);
+      	}
+    	st.close();
+    	con.close();
+    }
+}
