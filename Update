@@ -1,0 +1,64 @@
+import java.sql.*;
+import java.util.Scanner;
+public class UpdateRecord
+{
+	public static Scanner sc = new Scanner(System.in);
+    public static void main( String[] args ) throws SQLException, ClassNotFoundException 
+    {
+    	updateQuery();
+    	checkResult();
+    }
+    
+    public static void updateQuery() throws SQLException, ClassNotFoundException
+    {
+    	String url = "jdbc:mysql://localhost:3306/payroll_service";
+    	String name = "root";
+    	String pass = "";
+    	String query = "update employee_payroll set emp_name=?,emp_salary=? where emp_id=?";
+    	
+    	Class.forName("com.mysql.cj.jdbc.Driver");
+    	Connection con = DriverManager.getConnection(url,name,pass);
+    	PreparedStatement ps = con.prepareStatement(query);
+    	
+    	ps.setString(1, "Oliver");
+    	ps.setDouble(2, 3000000);
+    	ps.setInt(3, 1001);
+    	
+    	int result = ps.executeUpdate();
+    	System.out.println("Number of affected rows:" + result);
+    	
+    	ps.close();
+    	con.close();
+    }
+    
+    public static void checkResult() throws ClassNotFoundException, SQLException
+    {
+    	String url = "jdbc:mysql://localhost:3306/payroll_service";
+    	String name = "root";
+    	String pass = "";
+    	String query = "select *from employee_payroll where emp_id=1001;";
+    	
+    	Class.forName("com.mysql.cj.jdbc.Driver");
+    	Connection con = DriverManager.getConnection(url,name,pass);
+    	Statement st = con.createStatement();
+    	ResultSet rs = st.executeQuery(query);
+    	
+    	rs.next();
+    	
+    	int emp_id = rs.getInt(1);
+    	String emp_name = rs.getString(2);
+    	String emp_gender = rs.getString(3);
+    	double emp_salary = rs.getDouble(4);
+    	String emp_date = rs.getString(5);
+    	
+    	System.out.println();
+    	System.out.println(emp_id);
+    	System.out.println(emp_name);
+    	System.out.println(emp_gender);
+    	System.out.println(emp_salary);
+    	System.out.println(emp_date);
+    	
+    	rs.close();
+    	con.close();
+    }
+}
